@@ -1,0 +1,7 @@
+---
+- name: start nginx
+  sudo: true
+  service:
+    name: nginx
+    state: started
+  become: true
