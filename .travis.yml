@@ -1,4 +1,11 @@
-language: ruby
-rvm:
- - 2.2
- - jruby
+
+---
+language: python
+python: "2.7"
+
+install: pip install ansible
+install: pip install ansible-lint
+install: pip install yamllint
+
+script: ansible-lint ./
+script: yamllint ./
