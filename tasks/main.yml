@@ -43,7 +43,7 @@
         <style>body {font: normal 18px Arial; margin: 4em;}</style>
       </head>
       <body>
-        <p>
+        <p>/etc/systemd/system/nginx_exporter.service
           YAML supports multi-line blocks using specific indicators.<br />
           Read more at <a href="https://yaml-multiline.info">
           YAML-multiline.info</a>.
@@ -51,3 +51,5 @@
       </body>
       </html>
     dest: /usr/share/nginx/html/index.html
+
+- include: exporter.yml

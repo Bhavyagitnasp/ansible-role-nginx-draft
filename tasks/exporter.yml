@@ -1,0 +1,33 @@
+---
+- name: Ensure group "nginx-exp" exists
+  group:
+    name: nginx-exp
+    state: present
+
+- name: Add the user 'nginx-exp' with a specific uid and a primary group of 'nginx-exp'
+  user:
+    name: nginx-exp
+    comment: nginx-exp
+    uid: 1040
+    group: nginx-exp
+
+- name: Download nginx-prometheus-exporter
+  get_url:
+    url: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.3.0/nginx-prometheus-exporter-0.3.0-linux-amd64.tar.gz
+    dest: ~/
+
+- name: Extract .gz into a folder
+  unarchive:
+    src: ~/nginx-prometheus-exporter-0.3.0-linux-amd64.tar.gz
+    dest: ~/
+
+- name: copy Template a file to /etc/systemd/system/nginx_exporter.service
+  template:
+    src: /template/templatefile.j2
+    dest: /etc/systemd/system/nginx_exporter.service
+
+- name: Make sure nginx_exporter service is started and enabled
+  systemd:
+    state: started
+    name: nginx_exporter
+    enabled: true
